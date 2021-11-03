@@ -28,13 +28,14 @@
     style="height: 100vh"
   >
     <div class="max-w-md w-full space-y-8">
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form class="mt-8 space-y-6" action="#" method="POST" @submit.prevent="loginUser">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <label for="email-address" class="sr-only">Email address</label>
             <input
               id="email-address"
+              v-model="login.email"
               name="email"
               type="email"
               autocomplete="email"
@@ -47,6 +48,7 @@
             <label for="password" class="sr-only">Password</label>
             <input
               id="password"
+              v-model="login.password"
               name="password"
               type="password"
               autocomplete="current-password"
@@ -106,7 +108,29 @@
 </template>
 
 <script>
-export default {}
+export default {
+  auth: false,
+  data() {
+    return {
+      login: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    loginUser() {
+      this.$auth
+        .login({
+          data: {
+            username: this.login.email,
+            password: this.login.password
+          }
+        })
+        .then(() => this.$router.push('/'))
+    }
+  }
+}
 </script>
 
 <style>

@@ -18,6 +18,7 @@
     <main>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Replace with your content -->
+        <nuxt-link to="/create">Create</nuxt-link>
         <div class="px-4 py-6 sm:px-0">
           <!-- This example requires Tailwind CSS v2.0+ -->
           <div class="flex flex-col">
@@ -49,7 +50,7 @@
                       </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                      <tr>
+                      <tr v-for="(item, idx) in items" :key="idx">
                         <td class="px-6 py-4 whitespace-nowrap">
                           <div class="flex items-center">
                             <div class="flex-shrink-0 h-10 w-10">
@@ -60,8 +61,8 @@
                               />
                             </div>
                             <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900">Jane Cooper</div>
-                              <div class="text-sm text-gray-500">jane.cooper@example.com</div>
+                              <div class="text-sm font-medium text-gray-900">{{ item.full_name }}</div>
+                              <div class="text-sm text-gray-500">{{ item.email }}</div>
                             </div>
                           </div>
                         </td>
@@ -76,7 +77,10 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                          <nuxt-link
+                            :to="`/update/${item.id}`"
+                            class="text-indigo-600 hover:text-indigo-900"
+                          >Update</nuxt-link>
                         </td>
                       </tr>
 
@@ -95,7 +99,23 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      items: []
+    }
+  },
+  mounted() {
+    this.loadUsers()
+  },
+  methods: {
+    loadUsers() {
+      this.$axios
+        .$get('/user/users')
+        .then((res) => (this.items = res.items.data))
+    }
+  }
+}
 </script>
 
 <style>
