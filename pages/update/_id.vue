@@ -30,7 +30,7 @@
                   <div class="shadow overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                       <div class="grid grid-cols-6 gap-6">
-                        <FormPhoto />
+                        <FormPhoto v-model="user.image" />
                         <FormInput v-model="user.full_name" label="Full name" />
                         <FormInput v-model="user.email" label="Email" type="email" />
                         <FormInput v-model="user.address" label="Address" />
@@ -97,13 +97,24 @@ export default {
     getUserData() {
       this.$axios.get('/user/users/' + this.$route.params.id).then((res) => {
         this.user = res.data.item
-        // this.user.roles.push(...res.data.item.roles)
       })
     },
     updateUserData() {
-      const data = { ...this.user, _method: 'PUT' }
+      const formData = new FormData()
+      formData.append('_method', 'PUT')
+      for (const key in this.user) {
+        if (this.user[key] != null) {
+          if (typeof this.user[key] === 'object' && key !== 'image') {
+            for (const k in this.user[key]) {
+              formData.append(`${key}[${k}]`, this.user[key][k])
+            }
+          } else {
+            formData.append(key, this.user[key])
+          }
+        }
+      }
       this.$axios
-        .put('/user/users/' + this.$route.params.id, data)
+        .post('/user/users/' + this.$route.params.id, formData)
         .then((res) => {
           this.$router.push('/')
         })
