@@ -44,7 +44,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://api.patron-erp.test/api',
+    baseURL: 'https://api.patron-erp.uz/api',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

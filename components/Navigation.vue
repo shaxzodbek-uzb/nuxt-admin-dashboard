@@ -197,7 +197,8 @@ export default {
   data() {
     return {
       links: [
-        { name: 'Foydalanuvchilar', path: '/' },
+        { name: 'Asosiy oyna', path: '/' },
+        { name: 'Foydalanuvchilar', path: '/users' },
         { name: 'Mahsulotlar', path: '/products' }
       ]
     }

@@ -94,7 +94,7 @@ export default {
     createUserData() {
       const data = { ...this.user }
       this.$axios.post('/user/users', data).then((res) => {
-        this.$router.push('/')
+        this.$router.push('/users')
       })
     },
     loadRoles() {
