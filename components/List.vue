@@ -78,7 +78,7 @@ export default {
     return {
       items: [],
       pagination: {
-        perPage: 1,
+        perPage: 10,
         lastPage: 1,
         currentPage: 1,
         to: 1

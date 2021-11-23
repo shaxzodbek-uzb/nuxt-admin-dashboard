@@ -199,7 +199,9 @@ export default {
       links: [
         { name: 'Asosiy oyna', path: '/' },
         { name: 'Foydalanuvchilar', path: '/users' },
-        { name: 'Mahsulotlar', path: '/products' }
+        { name: 'Mahsulotlar', path: '/products' },
+        { name: 'Kurslar', path: '/courses' },
+        { name: 'Ruxsatnomalar', path: '/permissions' }
       ]
     }
   }
